@@ -9,4 +9,4 @@ Included:
 - My Irssi theme. (I am not the creator.)
 - My wallpapers.
 
-Note: I use Vimix Light for GTK & Arc+Vimix for icons.
+Note: My Polybar config requires Font Awesome 5 to be installed. I use Vimix Light for GTK & Arc+Vimix for icons.
