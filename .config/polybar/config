@@ -1,0 +1,283 @@
+;=====================================================
+; Colors used later, change here to change colors
+; in a modular way
+;=====================================================
+
+[colors]
+
+; Note: #aarrggbb, omit for solid alpha #rrggbb
+main-bar-background = #000000
+modules-background  = #000000
+
+battery-icon-bgcolor = #61a38d
+battery-icon-frground = #FFFFFF
+volume-icon-bgcolor = #ee4733
+bright-icon-bgcolor = #fabd2b
+date-icon-bgcolor = #d18498
+
+;=====================================================
+
+;=====================================================
+; Fonts 
+;=====================================================
+[fonts]
+font-0 = "FontAwesome:style=Regular:pixelsize=14;3"
+font-1 = "Material Design Icons:size=11;3"
+font-2 = "Monaco:pixelsize=11;3"
+font-3 = "DejaVu Sans Mono:weight=none:pixelsize=9;3"
+font-4 = "Font Awesome 5 Brands:style=Regular:pixelsize=12;3"
+font-5 = "Font Awesome 5 Free Solid:style=Solid:pixelsize=12;3"
+font-6 = "Font Awesome 5 Free Regular:style=Regular:pixelsize=12;3"
+
+;=====================================================
+
+
+;=====================================================
+; Main bar
+;=====================================================
+[bar/main]
+width  = 100%
+height = 30
+fixed-center = true
+
+offset-x = 0
+offset-y = 0
+
+background = ${colors.main-bar-background}
+
+border-size = 5
+border-color = ${colors.main-bar-background}
+
+padding-right = 0
+
+module-margin-left  = 1
+module-margin-right = 0
+
+font-0 = ${fonts.font-0}
+font-1 = ${fonts.font-1}
+font-2 = ${fonts.font-2}
+font-4 = ${fonts.font-4}
+font-5 = ${fonts.font-5}
+font-6 = ${fonts.font-6}
+
+enable-ipc = true
+
+modules-left   = temperature cpu memory
+modules-center = date
+modules-right  = volume xbacklight battery
+
+tray-position    = right
+tray-padding     = 0 
+tray-background  = ${colors.modules-background}
+tray-scale       = 1.0
+
+dim-value = 1.0
+
+bottom = false
+;=====================================================
+
+
+;=====================================================
+; Module date and time
+;=====================================================
+[module/date]
+type = internal/date
+interval = 5
+
+; Format for date
+date = "%m-%d"
+
+; Format for time
+time = "%I:%M"
+
+format-prefix-foreground = ${colors.date-icon-bgcolor}
+format-prefix-background = ${colors.modules-background}
+format-prefix-font = 2
+
+label            = " %time%   %date%"
+label-background = ${colors.modules-background}
+;=====================================================
+
+
+;=====================================================
+; Module battery:
+; Shows information about the battery
+;=====================================================
+[module/battery]
+type = internal/battery
+
+; Use the following command to list batteries and adapters
+; $ ls -l /sys/class/power_supply
+battery = BAT1
+adapter = ADP0
+
+
+; Useful in case the battery never reports 100% charge
+full-at = 100
+
+; Format when battery is charging
+format-charging            = <animation-charging><label-charging>
+label-charging             = "%percentage%% "
+format-charging-background = ${colors.modules-background}
+label-charging-background  = ${colors.modules-background}
+
+; Format when battery is discharging
+format-discharging            = <ramp-capacity><label-discharging>
+label-discharging             = "%percentage%%"
+format-discharging-background = ${colors.modules-background}
+label-discharging-background  = ${colors.modules-background}
+
+; Format when battery is fully charged
+format-full            = <ramp-capacity><label-full>
+format-full-background = ${colors.modules-background}
+label-full             = "%percentage%%"
+label-full-background  = ${colors.modules-background}
+
+ramp-capacity-font = 5
+ramp-capacity-0  = " "
+ramp-capacity-1  = " "
+ramp-capacity-2  = " "
+ramp-capacity-3  = " "
+ramp-capacity-4  = " "
+ramp-capacity-5  = " "
+ramp-capacity-6  = " "
+ramp-capacity-7  = " "
+ramp-capacity-8  = " "
+ramp-capacity-9  = " "
+ramp-capacity-10 = " "
+ramp-capacity-foreground = ${colors.battery-icon-frground}
+ramp-capacity-background = ${colors.modules-background}
+
+animation-charging-font = 2
+animation-charging-0 = " "
+animation-charging-1 = " "
+animation-charging-2 = " "
+animation-charging-3 = " "
+animation-charging-4 = " "
+animation-charging-5 = " "
+animation-charging-6 = " "
+animation-charging-7 = " "
+animation-charging-8 = " "
+animation-charging-9 = " "
+animation-charging-10 = " "
+animation-charging-11 = " "
+animation-charging-framerate = 450
+animation-charging-foreground = ${colors.battery-icon-frground}
+animation-charging-background = ${colors.modules-background}
+;=====================================================
+
+
+;=====================================================
+; Module xbacklight:
+; Shows information about the defined output's
+; backlight level
+;=====================================================
+[module/xbacklight]
+type = internal/xbacklight
+enable-scroll = true
+
+format = <ramp><label>
+
+; format label (if <label> is present)
+label            = " %percentage%% "
+label-background = ${colors.modules-background}
+
+; format ramp (if <ramp> is present)
+ramp-0 = 
+ramp-foreground = ${colors.bright-icon-bgcolor}
+ramp-background = ${colors.modules-background}
+;=====================================================
+
+
+;=====================================================
+; Module volume
+;=====================================================
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume><label-volume> 
+label-volume  = " %percentage%% "
+label-volume-background = ${colors.modules-background}
+
+format-muted                    = <label-muted>
+format-muted-prefix             =
+format-muted-prefix-foreground  = ${colors.volume-icon-bgcolor}
+format-muted-prefix-background  = ${colors.modules-background}
+
+label-muted            = Muted
+label-muted-background = ${colors.modules-background} 
+
+ramp-volume-0 =
+ramp-volume-1 =
+ramp-volume-2 =
+ramp-volume-foreground = ${colors.volume-icon-bgcolor}
+ramp-volume-background = ${colors.modules-background}
+;=====================================================
+
+;=====================================================
+; Module CPU
+;=====================================================
+[module/cpu]
+type = internal/cpu
+
+label = " %percentage%% "
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+;=====================================================
+
+;=====================================================
+; Module Temperature
+;=====================================================
+[module/temperature]
+type = internal/temperature
+
+label = " %temperature% "
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 0.5
+
+; Thermal zone to use
+; To list all the zone types, run 
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp2_input
+
+; Threshold temperature to display warning label
+; Default: 80
+warn-temperature = 60
+;=====================================================
+
+;=====================================================
+; Module Memory
+;=====================================================
+[module/memory]
+type = internal/memory
+
+label = " %gb_used%"
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+;=====================================================
+
+;=====================================================
+; Settings
+;=====================================================
+[settings]
+screenchange-reload = true
+compositing-background = over
+compositing-border     = over
+;=====================================================
+
+
+; vim:ft=dosini
